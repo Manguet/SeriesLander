@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand order-1 order-md-0 dual-collapse2" href="#"><span>S</span>eries <span>L</span>ander</a>
+    <a class="navbar-brand order-1 order-md-0 dual-collapse2" href="{{ path('app_index') }}"><span>S</span>eries <span>L</span>ander</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarToggle">
-        <div class="mx-auto order-0">
+        <div class="mx-auto">
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
@@ -14,7 +14,7 @@
         <div>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Catégories</a>
+                    <a class="nav-link" href="{{ path('lander_categories') }}">Catégories</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Séries</a>
