@@ -1,0 +1,11 @@
+body {
+  font-family     : $body-font;
+  font-size       : 1.5rem;
+  background-color: $black;
+  color           : $white;
+
+  h1 {
+    color: $red;
+    font-size: 5rem;
+  }
+}
