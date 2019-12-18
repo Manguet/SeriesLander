@@ -1,0 +1,30 @@
+.all-series {
+
+  .card {
+    width: 18vw;
+
+    background-color: $black;
+    &:hover {
+      box-shadow: 10px 10px 10px $red;
+      .card-title {
+        color: $red;
+      }
+      .card-img-top {
+        filter: sepia(60%);
+      }
+    }
+
+    .card-img-top {
+      height: 40vh;
+    }
+
+    .card-title {
+      color: $white;
+      font-size: 1.8rem;
+    }
+
+    .card-body {
+      height: 10vh;
+    }
+  }
+}
