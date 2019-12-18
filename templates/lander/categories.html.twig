@@ -5,9 +5,18 @@
 {% block body %}
         <h1 class="text-center mt-5">Choississez une catégorie pour trouver des films</h1>
 
-        <div class="container mt-5">
-                {% for category in categories %}
-                        {{ category.name }}
-                {% endfor %}
+        <div class="container mt-5 mb-5">
+
+            {% for category in categories %}
+                <div class="media mb-5">
+                    <i class="{{ category.icon }} mr-3 category-title"></i>
+                        <div class="media-body">
+                            <h5 class="mt-0 font-weight-bold category-title">{{ category.name }}</h5>
+                            <p>{{ category.description }}</p>
+                            <a href="#" class="btn btn-custom">Voir les films de cette section</a>
+                        </div>
+                </div>
+            {% endfor %}
+
         </div>
 {% endblock %}
