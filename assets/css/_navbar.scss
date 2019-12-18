@@ -33,11 +33,11 @@ nav {
   .dropdown-menu {
     background-color: $black;
     color: $white;
-
     .dropdown-item {
       color: $white;
       &:hover {
         color: $red;
+        text-decoration: underline;
       }
     }
   }

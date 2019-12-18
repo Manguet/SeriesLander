@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Program;
+use App\Entity\Season;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,7 +31,7 @@ class LanderController extends AbstractController
     /**
      * @Route("/series", name="series")
      */
-    public function allSeries()
+    public function allSeries(): Response
     {
         $programs = $this->getDoctrine()
             ->getRepository(Program::class)
@@ -46,7 +47,7 @@ class LanderController extends AbstractController
      * @param $id
      * @return Response
      */
-    public function oneProgram($id)
+    public function oneProgram($id): Response
     {
         $program = $this->getDoctrine()
             ->getRepository(Program::class)
@@ -63,6 +64,27 @@ class LanderController extends AbstractController
             'actors'            => $actors,
             'seasons'           => $seasons,
             'number_of_seasons' => $numberOfSeasons,
+        ]);
+    }
+
+    /**
+     * @Route("/showSeason/{id}", name="show_season")
+     * @param $id
+     * @return Response
+     */
+    public function showBySeason($id): Response
+    {
+        $season = $this->getDoctrine()
+            ->getRepository(Season::class)
+            ->findOneBy([
+                'id' => $id,
+            ]);
+
+        $program = $season->getProgram();
+
+        return $this->render('lander/season.html.twig', [
+            'season'  => $season,
+            'program' => $program,
         ]);
     }
 }

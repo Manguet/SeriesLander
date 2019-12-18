@@ -4,15 +4,18 @@
 
 {% block body %}
     <h1 class="text-center mt-5 mb-5"> {{ program.title }} </h1>
+
     <div class="mt-5 mr-5 mb-5 ml-5 d-flex flex-program">
+
         <div class="program-poster">
             <img src="{{ program.poster }}" class="poster-size">
         </div>
+
         <div class="program-text">
             <p> Programme dans la catégorie : {{ program.category.name }}</p>
             <p>Nombre de saisons : {{ number_of_seasons }}</p>
             {% for season in seasons %}
-                <a href="#" class="btn btn-custom">Saison {{ loop.index }}</a>
+                <a href="{{ path('lander_show_season', { 'id' : season.id }) }}" class="btn btn-custom">Saison {{ loop.index }}</a>
             {% endfor %}
             <p class="mt-2 actors-program"> Liste des acteurs : </p>
             <ul class="actors-program">
@@ -20,6 +23,9 @@
                     <li>{{ actor.name }}</li>
                 {% endfor %}
             </ul>
+        </div>
+        <div class="ml-5">
+            <a href="{{ path('lander_series') }}" class="btn btn-custom return">Retour à la liste des programmes</a>
         </div>
     </div>
 {% endblock %}
