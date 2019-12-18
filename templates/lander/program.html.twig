@@ -12,7 +12,7 @@
         </div>
 
         <div class="program-text">
-            <p> Programme dans la catégorie : {{ program.category.name }}</p>
+            <p> Programme dans la catégorie : <a href="{{ path('lander_by_category', {'id' : category.id}) }}" class="category-link">{{ program.category.name }}</a></p>
             <p>Nombre de saisons : {{ number_of_seasons }}</p>
             {% for season in seasons %}
                 <a href="{{ path('lander_show_season', { 'id' : season.id }) }}" class="btn btn-custom">Saison {{ loop.index }}</a>

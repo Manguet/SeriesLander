@@ -13,7 +13,7 @@
                         <div class="media-body">
                             <h5 class="mt-0 font-weight-bold category-title">{{ category.name }}</h5>
                             <p>{{ category.description }}</p>
-                            <a href="#" class="btn btn-custom">Voir les films de cette section</a>
+                            <a href="{{ path('lander_by_category', {'id' : category.id}) }}" class="btn btn-custom">Voir les films de cette section</a>
                         </div>
                 </div>
             {% endfor %}

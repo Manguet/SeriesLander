@@ -58,12 +58,14 @@ class LanderController extends AbstractController
         $actors = $program->getActor();
         $seasons = $program->getSeasons();
         $numberOfSeasons = count($seasons);
+        $category = $program->getCategory();
 
         return $this->render('lander/program.html.twig', [
             'program'           => $program,
             'actors'            => $actors,
             'seasons'           => $seasons,
             'number_of_seasons' => $numberOfSeasons,
+            'category'          => $category,
         ]);
     }
 
@@ -85,6 +87,23 @@ class LanderController extends AbstractController
         return $this->render('lander/season.html.twig', [
             'season'  => $season,
             'program' => $program,
+        ]);
+    }
+
+    /**
+     * @Route("/showByCategory/{id}", name="by_category")
+     */
+    public function programByCategory($id)
+    {
+        $category = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->find($id);
+
+        $programs = $category->getPrograms();
+
+        return $this->render('lander/byCategory.html.twig', [
+            'category' => $category,
+            'programs' => $programs,
         ]);
     }
 }
