@@ -1,0 +1,32 @@
+.poster-size {
+  height: 60vh;
+}
+
+.program-poster {
+  margin-right: 5%;
+}
+
+.program-text {
+  margin-left: 5%;
+}
+
+@media screen and (max-width: 900px) {
+  .flex-program {
+    flex-direction: column;
+  }
+
+  .program-poster {
+    align-self: center;
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
+
+  .program-text {
+    text-align: center;
+    margin-left: 0;
+  }
+
+  .actors-program {
+    text-align: left;
+  }
+}

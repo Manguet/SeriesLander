@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Program;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -37,6 +38,31 @@ class LanderController extends AbstractController
 
         return $this->render('lander/programs.html.twig', [
            'programs' => $programs,
+        ]);
+    }
+
+    /**
+     * @Route("/showProgram/{id}", name="show_program")
+     * @param $id
+     * @return Response
+     */
+    public function oneProgram($id)
+    {
+        $program = $this->getDoctrine()
+            ->getRepository(Program::class)
+            ->findOneBy([
+                'id' => $id,
+            ]);
+
+        $actors = $program->getActor();
+        $seasons = $program->getSeasons();
+        $numberOfSeasons = count($seasons);
+
+        return $this->render('lander/program.html.twig', [
+            'program'           => $program,
+            'actors'            => $actors,
+            'seasons'           => $seasons,
+            'number_of_seasons' => $numberOfSeasons,
         ]);
     }
 }
