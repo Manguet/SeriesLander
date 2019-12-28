@@ -8,7 +8,7 @@
     <div class="mt-5 mb-5 row">
         {% for program in programs %}
             <div class="all-series col-lg-4 col-md-6 col-sm-10 d-flex align-items-center justify-content-center mt-5 mb-5">
-                <a href="{{ path('lander_show_program', {'id' : program.id}) }}" class="text-decoration-none">
+                <a href="{{ path('lander_show_program', {'slug' : program.slug}) }}" class="text-decoration-none">
                     <div class="card">
                         <img src="{{ program.poster }}" class="card-img-top" alt="Affiche de {{ program.title }}">
                         <div class="card-body overflow-hidden">
