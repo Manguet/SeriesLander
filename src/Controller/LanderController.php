@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Actor;
 use App\Entity\Category;
 use App\Entity\Program;
 use App\Entity\Season;
@@ -104,6 +105,23 @@ class LanderController extends AbstractController
         return $this->render('lander/byCategory.html.twig', [
             'category' => $category,
             'programs' => $programs,
+        ]);
+    }
+
+    /**
+     * @Route("/showByActor/{id}", name="by_actor")
+     */
+    public function programByActor($id)
+    {
+        $actor = $this->getDoctrine()
+            ->getRepository(Actor::class)
+            ->find($id);
+
+        $programs = $actor->getPrograms();
+
+        return $this->render('lander/byActor.html.twig', [
+           'programs' => $programs,
+            'actor'   => $actor,
         ]);
     }
 }
