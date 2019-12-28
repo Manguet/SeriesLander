@@ -20,7 +20,7 @@
             <p class="mt-2 actors-program"> Liste des acteurs : </p>
             <ul class="actors-program">
                 {% for actor in actors %}
-                    <li>{{ actor.name }}</li>
+                    <li><a href="{{ path('lander_by_actor', {'id' : actor.id}) }}" class="category-link">{{ actor.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>
