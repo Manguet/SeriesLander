@@ -4,5 +4,7 @@
 
 {% block body %}
     <h1 class="text-center mt-5">Bienvenue !</h1>
+    {% if app.user %}
     <p class="text-center">Qui êtes-vous ?</p>
+    {% endif %}
 {% endblock %}
