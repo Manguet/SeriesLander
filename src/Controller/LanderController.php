@@ -45,16 +45,15 @@ class LanderController extends AbstractController
     }
 
     /**
-     * @Route("/showProgram/{id}", name="show_program")
-     * @param $id
+     * @Route("/showProgram/{slug}", name="show_program")
      * @return Response
      */
-    public function oneProgram($id): Response
+    public function oneProgram($slug): Response
     {
         $program = $this->getDoctrine()
             ->getRepository(Program::class)
             ->findOneBy([
-                'id' => $id,
+                'slug' => $slug,
             ]);
 
         $actors = $program->getActor();
@@ -93,13 +92,13 @@ class LanderController extends AbstractController
     }
 
     /**
-     * @Route("/showByCategory/{id}", name="by_category")
+     * @Route("/showByCategory/{slug}", name="by_category")
      */
-    public function programByCategory($id)
+    public function programByCategory($slug)
     {
         $category = $this->getDoctrine()
             ->getRepository(Category::class)
-            ->find($id);
+            ->findOneBy(['slug' => $slug]);
 
         $programs = $category->getPrograms();
 
@@ -110,13 +109,13 @@ class LanderController extends AbstractController
     }
 
     /**
-     * @Route("/showByActor/{id}", name="by_actor")
+     * @Route("/showByActor/{slug}", name="by_actor")
      */
-    public function programByActor($id)
+    public function programByActor($slug)
     {
         $actor = $this->getDoctrine()
             ->getRepository(Actor::class)
-            ->find($id);
+            ->findOneBy(['slug' => $slug]);
 
         $programs = $actor->getPrograms();
 
@@ -127,13 +126,13 @@ class LanderController extends AbstractController
     }
 
     /**
-     * @Route("/showEpisode/{id}", name="episode")
+     * @Route("/showEpisode/{slug}", name="episode")
      */
-    public function episodeDetail($id)
+    public function episodeDetail($slug)
     {
         $episode = $this->getDoctrine()
             ->getRepository(Episode::class)
-            ->find($id);
+            ->findOneBy(['slug' => $slug]);
 
         $season = $episode->getSeason();
 

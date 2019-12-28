@@ -12,7 +12,7 @@
         </div>
 
         <div class="program-text">
-            <p> Programme dans la catégorie : <a href="{{ path('lander_by_category', {'id' : category.id}) }}" class="category-link">{{ program.category.name }}</a></p>
+            <p> Programme dans la catégorie : <a href="{{ path('lander_by_category', {'slug' : category.slug}) }}" class="category-link">{{ program.category.name }}</a></p>
             <p>Nombre de saisons : {{ number_of_seasons }}</p>
             {% for season in seasons %}
                 <a href="{{ path('lander_show_season', { 'id' : season.id }) }}" class="btn btn-custom">Saison {{ loop.index }}</a>
@@ -20,7 +20,7 @@
             <p class="mt-2 actors-program"> Liste des acteurs : </p>
             <ul class="actors-program">
                 {% for actor in actors %}
-                    <li><a href="{{ path('lander_by_actor', {'id' : actor.id}) }}" class="category-link">{{ actor.name }}</a></li>
+                    <li><a href="{{ path('lander_by_actor', {'slug' : actor.slug}) }}" class="category-link">{{ actor.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>

@@ -15,7 +15,7 @@
                     {% for episode in season.episodes %}
                         <li class="list-episodes">
                             <i class="fas fa-chevron-right"></i>
-                            <a href="{{ path('lander_episode', {'id' : episode.id}) }}" class="list-episodes">{{ episode.title }}</a>
+                            <a href="{{ path('lander_episode', {'slug' : episode.slug}) }}" class="list-episodes">{{ episode.title }}</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -27,7 +27,7 @@
         </div>
         <div class="ml-5 mt-5 d-flex justify-content-around">
             <a href="{{ path('lander_series') }}" class="btn btn-custom return mr-5 mb-5">Retour à la liste des programmes</a>
-            <a href="{{ path('lander_show_program', { 'id' : program.id }) }}" class="btn btn-custom return ml-5 mb-5">Retour à {{ program.title }}</a>
+            <a href="{{ path('lander_show_program', { 'slug' : program.slug }) }}" class="btn btn-custom return ml-5 mb-5">Retour à {{ program.title }}</a>
         </div>
     </div>
 {% endblock %}
