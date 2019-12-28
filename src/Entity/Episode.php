@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EpisodeRepository")
  */
@@ -22,14 +21,11 @@ class Episode
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Merci de remplir ce champs!")
-     * @Assert\Length(max="255, maxMessage="L'épisode saisie {{ value }} est trop long, il ne devrait pas dépasser {{ limit }} caractères")
      */
     private $title;
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank(message="Merci de remplir ce champs!")
      */
     private $number;
 

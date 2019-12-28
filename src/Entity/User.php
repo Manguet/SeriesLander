@@ -28,8 +28,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank(message="Merci de remplir ce champs!")
-     * @Assert\Length(max="180, maxMessage="L'utilisateur saisie {{ value }} est trop long, il ne devrait pas dépasser {{ limit }} caractères")
      */
     private $username;
 
