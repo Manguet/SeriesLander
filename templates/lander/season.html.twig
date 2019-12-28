@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de la saison{% endblock %}
+
+{% block body %}
+    <div>
+        <h1 class="text-center mt-5 mb-5">Saison de {{ program.title }}</h1>
+        <div class="d-flex">
+            <div class="col-lg-5">
+                <p> Saison parue en {{ season.year }}</p>
+                <p><u>Résumé de la saison :</u></p>
+                <p class="text-justify">{{ season.description }}</p>
+                <p><u>Liste des épisodes de la saison :</u></p>
+                <ul>
+                    {% for episode in season.episodes %}
+                        <li class="list-episodes">
+                            <i class="fas fa-chevron-right"></i>
+                            <a href="#" class="list-episodes">{{ episode.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-lg-7">
+                <iframe width="1000" height="630" src="{{ season.youtubeLink }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="ml-5 mt-5 d-flex justify-content-around">
+            <a href="{{ path('lander_series') }}" class="btn btn-custom return mr-5 mb-5">Retour à la liste des programmes</a>
+            <a href="{{ path('lander_show_program', { 'id' : program.id }) }}" class="btn btn-custom return ml-5 mb-5">Retour à {{ program.title }}</a>
+        </div>
+    </div>
+{% endblock %}

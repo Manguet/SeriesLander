@@ -1,0 +1,44 @@
+nav {
+  font-family: $title-font;
+  font-size: 1.5rem;
+  background-color: $black;
+
+  .form-control.mr-sm-2 {
+    width: 30vw;
+  }
+
+  a {
+    color: $red;
+    &:hover {
+      color: $white;
+    }
+  }
+
+  .navbar-brand {
+    font-size: 1.8rem;
+  }
+
+  .navbar-toggler {
+    border-radius: 50%;
+    background-color: $red;
+    height: 3vh;
+    width: 3vw;
+  }
+
+  span {
+    font-size: 2.2rem;
+    font-weight: bold;
+  }
+
+  .dropdown-menu {
+    background-color: $black;
+    color: $white;
+    .dropdown-item {
+      color: $white;
+      &:hover {
+        color: $red;
+        text-decoration: underline;
+      }
+    }
+  }
+}

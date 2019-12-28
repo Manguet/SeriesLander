@@ -1,0 +1,32 @@
+body {
+  font-family: $body-font;
+  font-size: 1.5rem;
+  background-color: $black;
+  color: $white;
+
+  h1 {
+    color: $red;
+    font-size: 5rem;
+  }
+
+  .btn-custom {
+    background-color: $red;
+    color: $black;
+    font-weight: bold;
+    &:hover {
+      color: $white;
+      box-shadow: 5px 5px 5px $white;
+    }
+    .return {
+      font-size: 1.2rem;
+    }
+  }
+
+  .category-link {
+    color: $red;
+    &:hover {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+}

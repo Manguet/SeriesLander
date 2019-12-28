@@ -1,4 +1,8 @@
 @import "~bootstrap/scss/bootstrap";
-body {
-    background-color: lightgray;
-}
+@import "variables";
+@import "main";
+@import "navbar";
+@import "categories";
+@import "series";
+@import "program";
+@import "season";
