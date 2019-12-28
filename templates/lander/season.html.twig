@@ -15,7 +15,7 @@
                     {% for episode in season.episodes %}
                         <li class="list-episodes">
                             <i class="fas fa-chevron-right"></i>
-                            <a href="#" class="list-episodes">{{ episode.title }}</a>
+                            <a href="{{ path('lander_episode', {'id' : episode.id}) }}" class="list-episodes">{{ episode.title }}</a>
                         </li>
                     {% endfor %}
                 </ul>

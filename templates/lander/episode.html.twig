@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ episode.title }}{% endblock %}
+
+{% block body %}
+    <div class="mt-5 ml-5 mb-5 mr-5">
+        <h1 class="text-center">{{ episode.title }}</h1>
+
+        <p><u>Episode numéro</u> : {{ episode.number }}</p>
+        <p><u>Résumé</u> :</p>
+        <p class="text-justify">{{ episode.synopsis }}</p>
+        <a href="{{ path('lander_show_season', { 'id' : season.id }) }}" class="mt-5 btn btn-custom">
+            Retour à la saison
+        </a>
+    </div>
+{% endblock %}

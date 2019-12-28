@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Actor;
 use App\Entity\Category;
+use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -120,8 +121,25 @@ class LanderController extends AbstractController
         $programs = $actor->getPrograms();
 
         return $this->render('lander/byActor.html.twig', [
-           'programs' => $programs,
-            'actor'   => $actor,
+            'programs' => $programs,
+            'actor'    => $actor,
+        ]);
+    }
+
+    /**
+     * @Route("/showEpisode/{id}", name="episode")
+     */
+    public function episodeDetail($id)
+    {
+        $episode = $this->getDoctrine()
+            ->getRepository(Episode::class)
+            ->find($id);
+
+        $season = $episode->getSeason();
+
+        return $this->render('lander/episode.html.twig', [
+            'episode' => $episode,
+            'season'  => $season,
         ]);
     }
 }
