@@ -15,6 +15,14 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-        return $this->render('index.html.twig');
+        $user = $this->getUser();
+        $subUsers = null;
+        if ($user != null) {
+            $subUsers = $user->getSubUsers();
+        }
+
+        return $this->render('index.html.twig', [
+            'subUsers' => $subUsers,
+        ]);
     }
 }

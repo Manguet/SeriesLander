@@ -41,6 +41,8 @@ security:
         - { path: ^/episode, roles: ROLE_ADMIN }
         - { path: ^/program, roles: ROLE_ADMIN }
         - { path: ^/season, roles: ROLE_ADMIN }
+        - { path: ^/subUser, roles: ROLE_ADMIN }
+        - { path: ^/image, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
 
     role_hierarchy:

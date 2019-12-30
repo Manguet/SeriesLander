@@ -5,6 +5,30 @@
 {% block body %}
     <h1 class="text-center mt-5">Bienvenue !</h1>
     {% if app.user %}
-    <p class="text-center">Qui êtes-vous ?</p>
+        <p class="text-center mb-5">Qui êtes-vous ?</p>
+        <div class="container mt-5 d-flex justify-content-center index">
+            {% for subUser in subUsers %}
+            <a href="#" class="text-decoration-none">
+                <div class="card mb-3" style="max-width: 18rem;">
+                    <div class="card-header text-center">{{ subUser.name }}</div>
+                    <div class="card-body">
+                        {% for image in subUser.images %}
+                            <img src="{{ image.url }}" alt="{{ image.name }}" class="card-img">
+                        {% endfor %}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+            <a href="#" class="text-decoration-none">
+                <div class="card mb-3" style="max-width: 18rem;">
+                    <div class="card-header text-center">
+                        Ajouter un Profil
+                    </div>
+                    <div class="card-body">
+                        <img src="{{ asset('build/images/add.png') }}" alt="Ajouter un Profil" class="card-img plus">
+                    </div>
+                </div>
+            </a>
+        </div>
     {% endif %}
 {% endblock %}
