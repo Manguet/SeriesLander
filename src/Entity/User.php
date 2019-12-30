@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -43,10 +45,17 @@ class User implements UserInterface
      */
     private $password;
 
-    public function __toString()
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SubUser", mappedBy="user")
+     */
+    private $subUsers;
+
+    public function __construct()
     {
-        return $this->password;
+        $this->subUsers = new ArrayCollection();
+        $this->roles = array('ROLE_SUBSCRIBER');
     }
+
 
     public function getId(): ?int
     {
@@ -120,4 +129,36 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return Collection|SubUser[]
+     */
+    public function getSubUsers(): Collection
+    {
+        return $this->subUsers;
+    }
+
+    public function addSubUser(SubUser $subUser): self
+    {
+        if (!$this->subUsers->contains($subUser)) {
+            $this->subUsers[] = $subUser;
+            $subUser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubUser(SubUser $subUser): self
+    {
+        if ($this->subUsers->contains($subUser)) {
+            $this->subUsers->removeElement($subUser);
+            // set the owning side to null (unless already changed)
+            if ($subUser->getUser() === $this) {
+                $subUser->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

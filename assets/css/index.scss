@@ -1,0 +1,16 @@
+.index {
+  width: 200vw;
+  .card {
+    background-color: $black;
+    color: $white;
+    &:hover {
+      color:red;
+      transform: scale(1.2);
+    }
+  }
+  .plus {
+    background-color: $white;
+    height: 25vh;
+    border-radius: 50%;
+  }
+}
