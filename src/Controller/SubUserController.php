@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\SubUser;
 use App\Form\SubUserType;
 use App\Repository\SubUserRepository;
@@ -15,6 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SubUserController extends AbstractController
 {
+    const IMAGE = 'Licorne';
+
     /**
      * @Route("/", name="index", methods={"GET"})
      */
@@ -37,9 +40,17 @@ class SubUserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($subUser);
+
+            $user = $this->getUser();
+            $image = $this->getDoctrine()
+                ->getRepository(Image::class)
+                ->findOneBy(['name' => self::IMAGE]);
+
+            $subUser->setUser($user);
+            $subUser->setImage($image);
             $entityManager->flush();
 
-            return $this->redirectToRoute('sub_user_index');
+            return $this->redirectToRoute('app_index');
         }
 
         return $this->render('sub_user/new.html.twig', [

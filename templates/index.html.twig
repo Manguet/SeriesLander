@@ -8,18 +8,18 @@
         <p class="text-center mb-5">Qui êtes-vous ?</p>
         <div class="container mt-5 d-flex justify-content-center index">
             {% for subUser in subUsers %}
-            <a href="#" class="text-decoration-none">
+            <a href="{{ path('app_profil', {'name' : subUser.name}) }}" class="text-decoration-none">
                 <div class="card mb-3" style="max-width: 18rem;">
                     <div class="card-header text-center">{{ subUser.name }}</div>
                     <div class="card-body">
-                        {% for image in subUser.images %}
-                            <img src="{{ image.url }}" alt="{{ image.name }}" class="card-img">
-                        {% endfor %}
+                        {% if subUser.image %}
+                            <img src="{{ subUser.image.url }}" alt="{{ subUser.image.name }}" class="card-img">
+                        {% endif %}
                     </div>
                 </div>
             </a>
             {% endfor %}
-            <a href="#" class="text-decoration-none">
+            <a href="{{ path('sub_user_new') }}" class="text-decoration-none">
                 <div class="card mb-3" style="max-width: 18rem;">
                     <div class="card-header text-center">
                         Ajouter un Profil

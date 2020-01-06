@@ -24,19 +24,14 @@ class SubUser
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="subUsers")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="subUsers", cascade={"persist"})
      */
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Image", mappedBy="subUser")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Image", inversedBy="subUser")
      */
-    private $images;
-
-    public function __construct()
-    {
-        $this->images = new ArrayCollection();
-    }
+    private $image;
 
     public function getId(): ?int
     {
@@ -67,33 +62,14 @@ class SubUser
         return $this;
     }
 
-    /**
-     * @return Collection|Image[]
-     */
-    public function getImages(): Collection
+    public function getImage(): ?Image
     {
-        return $this->images;
+        return $this->image;
     }
 
-    public function addImage(Image $image): self
+    public function setImage(?Image $image): self
     {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setSubUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
-            // set the owning side to null (unless already changed)
-            if ($image->getSubUser() === $this) {
-                $image->setSubUser(null);
-            }
-        }
+        $this->image = $image;
 
         return $this;
     }
