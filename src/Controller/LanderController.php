@@ -4,10 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Actor;
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
+use App\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -127,18 +131,39 @@ class LanderController extends AbstractController
 
     /**
      * @Route("/showEpisode/{slug}", name="episode")
+     * @param $slug
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
-    public function episodeDetail($slug)
+    public function episodeDetail($slug, Request $request)
     {
         $episode = $this->getDoctrine()
             ->getRepository(Episode::class)
             ->findOneBy(['slug' => $slug]);
 
         $season = $episode->getSeason();
+        $comments = $episode->getComments();
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setEpisode($episode);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('lander_episode', [
+                'slug' => $slug,
+            ]);
+        }
 
         return $this->render('lander/episode.html.twig', [
-            'episode' => $episode,
-            'season'  => $season,
+            'episode'  => $episode,
+            'season'   => $season,
+            'comments' => $comments,
+            'form'     => $form->createView(),
         ]);
     }
 }

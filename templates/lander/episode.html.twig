@@ -12,5 +12,18 @@
         <a href="{{ path('lander_show_season', { 'id' : season.id }) }}" class="mt-5 btn btn-custom">
             Retour à la saison
         </a>
+
+        <div class="container mt-3 mb-3">
+            {% for comment in comments %}
+                <p class="text-justify"><u>Commentaire {{ loop.index }}</u> : {{ comment.comment }} </p>
+            {% endfor %}
+        </div>
+
+            <div class="container mt-3 mb-3">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-lg btn-custom mt-3">{{ button_label|default('Ajouter le commentaire') }}</button>
+                {{ form_end(form) }}
+            </div>
     </div>
 {% endblock %}
