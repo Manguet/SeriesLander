@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choix de l'image de profil{% endblock %}
+
+{% block body %}
+
+    <div class="mt-5 mr-5 mb-5 ml-5">
+        <div class="row">
+
+        {% for image in images %}
+
+            <div class="jumbotron col-md-2 ml-3 mr-3 d-flex flex-column align-items-center">
+                <h1 class="display-4">{{ image.name }}</h1>
+                <img src="{{ image.url }}" alt="{{ image.name }}" class="select_img">
+                <a class="btn btn-custom mt-3" href="{{ path('app_image_edit', {'id' : image.id}) }}" role="button">Selectionner</a>
+            </div>
+
+        {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,9 +29,14 @@ class Image
     private $url;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\SubUser", inversedBy="images")
+     * @ORM\OneToMany(targetEntity="App\Entity\SubUser", mappedBy="image")
      */
     private $subUser;
+
+    public function __construct()
+    {
+        $this->subUser = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,14 +67,33 @@ class Image
         return $this;
     }
 
+    /**
+     * @return Collection|SubUser[]
+     */
     public function getSubUser(): Collection
     {
         return $this->subUser;
     }
 
-    public function setSubUser(?SubUser $subUser): self
+    public function addSubUser(SubUser $subUser): self
     {
-        $this->subUser = $subUser;
+        if (!$this->subUser->contains($subUser)) {
+            $this->subUser[] = $subUser;
+            $subUser->setImage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubUser(SubUser $subUser): self
+    {
+        if ($this->subUser->contains($subUser)) {
+            $this->subUser->removeElement($subUser);
+            // set the owning side to null (unless already changed)
+            if ($subUser->getImage() === $this) {
+                $subUser->setImage(null);
+            }
+        }
 
         return $this;
     }

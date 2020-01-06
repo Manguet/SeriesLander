@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Image;
-use App\Form\ImageType;
+use App\Form\Image3Type;
 use App\Repository\ImageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/image", name="image_")
+ * @Route("/image")
  */
 class ImageController extends AbstractController
 {
     /**
-     * @Route("/", name="index", methods={"GET"})
+     * @Route("/", name="image_index", methods={"GET"})
      */
     public function index(ImageRepository $imageRepository): Response
     {
@@ -26,12 +26,12 @@ class ImageController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new", methods={"GET","POST"})
+     * @Route("/new", name="image_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
         $image = new Image();
-        $form = $this->createForm(ImageType::class, $image);
+        $form = $this->createForm(Image3Type::class, $image);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -49,7 +49,7 @@ class ImageController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="show", methods={"GET"})
+     * @Route("/{id}", name="image_show", methods={"GET"})
      */
     public function show(Image $image): Response
     {
@@ -59,11 +59,11 @@ class ImageController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="image_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Image $image): Response
     {
-        $form = $this->createForm(ImageType::class, $image);
+        $form = $this->createForm(Image3Type::class, $image);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class ImageController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
+     * @Route("/{id}", name="image_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Image $image): Response
     {

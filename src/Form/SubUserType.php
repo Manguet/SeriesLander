@@ -12,9 +12,8 @@ class SubUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('user', null, [
-                'choice_label' => 'username'
+            ->add('name', null, [
+                'label' => 'Nom du Profil'
             ])
         ;
     }

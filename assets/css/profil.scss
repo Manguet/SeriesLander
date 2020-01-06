@@ -1,0 +1,26 @@
+.profil {
+
+  .box-profil {
+
+    .img-size {
+      width: 20vw;
+    }
+
+    a {
+      color: $red;
+      &:hover {
+        color: $white;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.select_img {
+  width: 10vw;
+}
+
+.jumbotron {
+  background-color: $black;
+  color: $red;
+}

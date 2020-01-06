@@ -2,12 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
+use App\Entity\SubUser;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
@@ -17,16 +24,13 @@ class SecurityController extends AbstractController
 {
     /**
      * @Route("/login", name="app_login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
-        // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
+
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
@@ -67,18 +71,78 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
-
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,
                 $authenticator,
-                'main' // firewall name in security.yaml
+                'main'
             );
         }
 
         return $this->render('security/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/my-profil/{name}", name="app_profil")
+     * @param $name
+     * @param SessionInterface $session
+     * @return Response
+     */
+    public function profile($name, SessionInterface $session)
+    {
+        $subUser = $this->getDoctrine()
+            ->getRepository(SubUser::class)
+            ->findOneBy(['name' => $name]);
+
+        $user  = $subUser->getUser();
+        $image = $subUser->getImage();
+
+        $session->set('subUser', $subUser);
+
+        return $this->render('security/profil.html.twig', [
+            'subUser' => $subUser,
+            'user'    => $user,
+            'image'   => $image,
+        ]);
+    }
+
+    /**
+     * @Route("profil/edit", name="app_profil_edit")
+     */
+    public function profilEdit()
+    {
+        $images = $this->getDoctrine()
+            ->getRepository(Image::class)
+            ->findAll();
+
+        return $this->render('security/images.html.twig', [
+            'images' => $images,
+        ]);
+    }
+
+    /**
+     * @Route("profil/image/{id}", name="app_image_edit")
+     * @param SessionInterface $session
+     * @param $id
+     * @return Response
+     */
+    public function editImage(SessionInterface $session, $id, EntityManagerInterface $manager, Request $request): Response
+    {
+        $subUser = $session->get('subUser');
+
+        $newImage = $this->getDoctrine()
+            ->getRepository(Image::class)
+            ->find($id);
+
+        $subUser->setImage($newImage);
+
+        $manager->persist($subUser);
+        $manager->flush();
+
+        return $this->redirect($this->generateUrl('app_profil', [
+            'name' => $subUser->getName(),
+        ]));
     }
 }

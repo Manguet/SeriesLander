@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New SubUser{% endblock %}
+{% block title %}Nouveau Sous-utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Create new SubUser</h1>
+    <div class="container mt-5">
+        <h1>Nouveau Profil</h1>
 
-    {{ include('sub_user/_form.html.twig') }}
-
-    <a href="{{ path('sub_user_index') }}">back to list</a>
+        {{ include('sub_user/_form.html.twig') }}
+    </div>
 {% endblock %}
